@@ -9,8 +9,8 @@ console.log('Part 1:');
 			.replaceAll('B', '1');
 		const numfbPos = parseInt(fbPos, 2);
 		const lrPos = pos.substring(7)
-			.replaceAll('R', '0')
-			.replaceAll('L', '1');
+			.replaceAll('L', '0')
+			.replaceAll('R', '1');
 		const numlrPos = parseInt(lrPos, 2);
 		const seatId = numfbPos * 8 + numlrPos;
 		maxSeatId = maxSeatId < seatId ? seatId : maxSeatId;
@@ -21,30 +21,24 @@ console.log('Part 1:');
 console.log('Part 2:');
 {
 	const posArray = POSITIONS.map(pos => {
-		const fbPos = pos.substring(0, 8)
+		const fbPos = pos.substring(0, 7)
 			.replaceAll('F', '0')
 			.replaceAll('B', '1');
-		const numfbPos = Number.parseInt(fbPos, 2);
+		const numfbPos = parseInt(fbPos, 2);
 		const lrPos = pos.substring(7)
-			.replaceAll('R', '0')
-			.replaceAll('L', '1');
-		const numlrPos = Number.parseInt(lrPos, 2);
+			.replaceAll('L', '0')
+			.replaceAll('R', '1');
+		const numlrPos = parseInt(lrPos, 2);
 		return numfbPos * 8 + numlrPos;
 	});
 	posArray.sort((a, b) => a - b);
-	let seat = '';
+	let seat = 0;
 	for (var i = 1; i < posArray.length; i++) {
 		const delta = posArray[i] - posArray[i - 1];
 		if (delta == 2) {
-			seat = (posArray[i] - 1).toString(2);
+			seat = posArray[i] - 1;
 			break;
 		}
 	}
-	const seatTop = seat.substring(0, 7)
-		.replaceAll('0', 'F')
-		.replaceAll('1', 'B');
-	const seatLow = seat.substring(7)
-		.replaceAll('0', 'R')
-		.replaceAll('1', 'L');
-	console.log(seatTop + seatLow);
+	console.log(seat);
 }
